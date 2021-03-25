@@ -162,3 +162,42 @@ func TestPasswordCompareUnknownType(t *testing.T) {
 	whatEvenIsThis.Algorithm()
 	t.Fatalf("No panic seen when one expected")
 }
+
+func TestPasswordFuzzBCrypt(t *testing.T) {
+	t.Parallel()
+
+	p := []byte(secutil.HashingAlgorithmBCrypt)
+	p = append(p, secutil.RandomBytes(16)...)
+	hash := secutil.HashedPassword(p)
+
+	result := hash.Compare(secutil.RandomBytes(16))
+	if result {
+		t.Fatalf("Unexpected hash result for fuzzed data - THIS IS BAD!")
+	}
+}
+
+func TestPasswordFuzzArgon2id(t *testing.T) {
+	t.Parallel()
+
+	p := []byte(secutil.HashingAlgorithmArgon2id)
+	p = append(p, secutil.RandomBytes(16)...)
+	hash := secutil.HashedPassword(p)
+
+	result := hash.Compare(secutil.RandomBytes(16))
+	if result {
+		t.Fatalf("Unexpected hash result for fuzzed data - THIS IS BAD!")
+	}
+}
+
+func TestPasswordFuzzPBKDF2(t *testing.T) {
+	t.Parallel()
+
+	p := []byte(secutil.HashingAlgorithmPBKDF2)
+	p = append(p, secutil.RandomBytes(16)...)
+	hash := secutil.HashedPassword(p)
+
+	result := hash.Compare(secutil.RandomBytes(16))
+	if result {
+		t.Fatalf("Unexpected hash result for fuzzed data - THIS IS BAD!")
+	}
+}

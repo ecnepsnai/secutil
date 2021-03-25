@@ -9,27 +9,26 @@ import (
 	"golang.org/x/crypto/scrypt"
 )
 
-// Hasher describes an object that can hash data
-type Hasher struct {
-	hasher hash.Hash
-}
-
-// HashSHA256 return the SHA-256 hash of the provided data. Do not use for passwords.
+// HashSHA256 return the SHA-256 hash of the provided data.
+// Do not use for secret data from users, such as passwords.
 func HashSHA256(raw []byte) []byte {
 	return hashWith(raw, sha256.New())
 }
 
-// HashSHA256String return a hexadecimal string representing the SHA-256 hash of the provided string. Do not use for passwords.
+// HashSHA256String return a hexadecimal string representing the SHA-256 hash of the provided string.
+// Do not use for secret data from users, such as passwords.
 func HashSHA256String(raw string) string {
 	return hashWithString(raw, sha256.New())
 }
 
-// HashSHA512 return the SHA-512 hash of the provided data. Do not use for passwords.
+// HashSHA512 return the SHA-512 hash of the provided data.
+// Do not use for secret data from users, such as passwords.
 func HashSHA512(raw []byte) []byte {
 	return hashWith(raw, sha512.New())
 }
 
-// HashSHA512String return a hexadecimal string representing the SHA-512 hash of the provided string. Do not use for passwords.
+// HashSHA512String return a hexadecimal string representing the SHA-512 hash of the provided string.
+// Do not use for secret data from users, such as passwords.
 func HashSHA512String(raw string) string {
 	return hashWithString(raw, sha512.New())
 }

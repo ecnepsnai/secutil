@@ -16,15 +16,15 @@ import (
 // Will return error if an empty passphrase or data is provided.
 func Decrypt(data []byte, passphrase string) ([]byte, error) {
 	if len(passphrase) == 0 {
-		return nil, fmt.Errorf("Passphrase is required")
+		return nil, fmt.Errorf("passphrase is required")
 	}
 	if len(data) < 12 {
-		return nil, fmt.Errorf("Invalid encrypted data")
+		return nil, fmt.Errorf("invalid encrypted data")
 	}
 
 	key := PassphraseToEncryptionKey(passphrase)
 	if len(key) != 32 {
-		return nil, fmt.Errorf("Invalid key length after hashing")
+		return nil, fmt.Errorf("invalid key length after hashing")
 	}
 
 	return DecryptKey(data, key)
@@ -35,10 +35,10 @@ func Decrypt(data []byte, passphrase string) ([]byte, error) {
 // Will return error if an invaid key or data is provided.
 func DecryptKey(data []byte, key []byte) ([]byte, error) {
 	if len(key) != 32 {
-		return nil, fmt.Errorf("Invalid key")
+		return nil, fmt.Errorf("invalid key")
 	}
 	if len(data) < 12 {
-		return nil, fmt.Errorf("Invalid encrypted data")
+		return nil, fmt.Errorf("invalid encrypted data")
 	}
 
 	r := bufio.NewReader(bytes.NewReader(data))

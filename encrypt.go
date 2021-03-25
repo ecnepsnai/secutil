@@ -13,15 +13,15 @@ import (
 // Will return error if an empty passphrase or data is provided.
 func Encrypt(data []byte, passphrase string) ([]byte, error) {
 	if len(data) == 0 {
-		return nil, fmt.Errorf("Cannot encrypt nothing - data length 0")
+		return nil, fmt.Errorf("cannot encrypt nothing - data length 0")
 	}
 	if len(passphrase) == 0 {
-		return nil, fmt.Errorf("Passphrase is required")
+		return nil, fmt.Errorf("passphrase is required")
 	}
 
 	key := PassphraseToEncryptionKey(passphrase)
 	if len(key) != 32 {
-		return nil, fmt.Errorf("Invalid key length after hashing")
+		return nil, fmt.Errorf("invalid key length after hashing")
 	}
 
 	return EncryptKey(data, key)
@@ -32,10 +32,10 @@ func Encrypt(data []byte, passphrase string) ([]byte, error) {
 // Will return error if an invaid key or data is provided.
 func EncryptKey(data []byte, key []byte) ([]byte, error) {
 	if len(data) == 0 {
-		return nil, fmt.Errorf("Cannot encrypt nothing - data length 0")
+		return nil, fmt.Errorf("cannot encrypt nothing - data length 0")
 	}
 	if len(key) != 32 {
-		return nil, fmt.Errorf("Invalid key")
+		return nil, fmt.Errorf("invalid key")
 	}
 
 	block, err := aes.NewCipher(key)

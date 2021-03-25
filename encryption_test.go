@@ -149,3 +149,14 @@ func TestDecryptBadParameters(t *testing.T) {
 		t.Fatalf("Unexpected data")
 	}
 }
+
+func TestDecryptFuzzedData(t *testing.T) {
+	passphrase := secutil.RandomString(8)
+	decryptedBytes, err := secutil.Decrypt(secutil.RandomBytes(16), passphrase)
+	if err == nil {
+		t.Fatalf("No error seen decrypting random data")
+	}
+	if decryptedBytes != nil {
+		t.Fatalf("Decrypted bytes returned with random data")
+	}
+}
