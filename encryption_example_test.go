@@ -7,32 +7,58 @@ import (
 	"github.com/ecnepsnai/secutil"
 )
 
-func ExampleEncrypt() {
-	data := []byte("Hello world!")
-	passphrase := "hunter1"
-	encryptedBytes, err := secutil.Encrypt(data, passphrase)
+func ExampleEncryptionAES256GCM_Encrypt() {
+	passphrase := "password"
+	data := []byte("some secret data")
+
+	encryptedBytes, err := secutil.Encryption.AES_256_GCM.Encrypt(data, passphrase)
 	if err != nil {
-		// Encryption failed for some reason
 		panic(err)
 	}
 
-	// Encrypted bytes are not ASCII, you should convert it to
-	// hex if you plan to store it as a string
-	fmt.Printf("Encrypted bytes: '%s'\n", hex.EncodeToString(encryptedBytes))
+	// Encrypted bytes are binary so you may wish to encode them as hex bytes
+	hexBytes := hex.EncodeToString(encryptedBytes)
+
+	fmt.Printf("Encrypted bytes: %s\n", hexBytes)
 }
 
-func ExampleDecrypt() {
-	encryptedBytes, _ := hex.DecodeString("c2a2ae6cb914c62b8c60b2697202649e66b02fac34b686ded43a4148de6537e1f3135ec351eedcf2")
-	passphrase := "hunter1"
+func ExampleEncryptionAES256GCM_Decrypt() {
+	encryptedBytes, _ := hex.DecodeString("4cf3c191dc75cdbd37bca050c99028ef8b43cbb85b36a890ea5ad074eaa1a250e62dad0a3da0cd090a08cfd1")
+	passphrase := "password"
 
-	decryptedBytes, err := secutil.Decrypt(encryptedBytes, passphrase)
+	decryptedBytes, err := secutil.Encryption.AES_256_GCM.Decrypt(encryptedBytes, passphrase)
 	if err != nil {
-		// Decryption failed, password was incorrect?
 		panic(err)
 	}
 
-	// Do something with the decrypted bytes
-	fmt.Printf("Decrypted bytes: '%s'\n", decryptedBytes)
+	fmt.Printf("%s\n", decryptedBytes)
+	// output: some secret data
+}
 
-	// output: Decrypted bytes: 'Hello world!'
+func ExampleEncryptionChaCha20Poly1305_Encrypt() {
+	passphrase := "password"
+	data := []byte("some secret data")
+
+	encryptedBytes, err := secutil.Encryption.CHACHA20_POLY1305.Encrypt(data, passphrase)
+	if err != nil {
+		panic(err)
+	}
+
+	// Encrypted bytes are binary so you may wish to encode them as hex bytes
+	hexBytes := hex.EncodeToString(encryptedBytes)
+
+	fmt.Printf("Encrypted bytes: %s\n", hexBytes)
+}
+
+func ExampleEncryptionChaCha20Poly1305_Decrypt() {
+	encryptedBytes, _ := hex.DecodeString("c2b602e819dbac10ac1cf9f3b9408c783b1769a703bc2169131046af4715fd70005228fb00c894d3a6d0877ab637261d593b28888600bf5d")
+	passphrase := "password"
+
+	decryptedBytes, err := secutil.Encryption.CHACHA20_POLY1305.Decrypt(encryptedBytes, passphrase)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%s\n", decryptedBytes)
+	// output: some secret data
 }
