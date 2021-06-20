@@ -14,6 +14,9 @@ import (
 // The passphrase can be a user provided value, and is hashed using scrypt before being used.
 //
 // Will return error if an empty passphrase or data is provided.
+//
+// **This method is deprecated in favor of `secutil.Cryptograpy.AES_256_GCM.Decrypt` and will be removed in a future
+// release of secutil**
 func Decrypt(data []byte, passphrase string) ([]byte, error) {
 	if len(passphrase) == 0 {
 		return nil, fmt.Errorf("passphrase is required")
@@ -33,6 +36,9 @@ func Decrypt(data []byte, passphrase string) ([]byte, error) {
 // DecryptKey will decrypt the given encrypted data using AES-256-GCM with the given 32-byte key.
 //
 // Will return error if an invaid key or data is provided.
+//
+// **This method is deprecated in favor of `secutil.Cryptograpy.AES_256_GCM.DecryptKey` and will be removed in a future
+// release of secutil**
 func DecryptKey(data []byte, key []byte) ([]byte, error) {
 	if len(key) != 32 {
 		return nil, fmt.Errorf("invalid key")

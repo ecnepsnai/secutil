@@ -11,6 +11,9 @@ import (
 // The passphrase can be a user provided value, and is hashed using scrypt before being used.
 //
 // Will return error if an empty passphrase or data is provided.
+//
+// **This method is deprecated in favor of `secutil.Cryptograpy.AES_256_GCM.Encrypt` and will be removed in a future
+// release of secutil**
 func Encrypt(data []byte, passphrase string) ([]byte, error) {
 	if len(data) == 0 {
 		return nil, fmt.Errorf("cannot encrypt nothing - data length 0")
@@ -30,6 +33,9 @@ func Encrypt(data []byte, passphrase string) ([]byte, error) {
 // EncryptKey will encrypt the given data using AES-256-GCM with the given 32-byte key.
 //
 // Will return error if an invaid key or data is provided.
+//
+// **This method is deprecated in favor of `secutil.Cryptograpy.AES_256_GCM.EncryptKey` and will be removed in a future
+// release of secutil**
 func EncryptKey(data []byte, key []byte) ([]byte, error) {
 	if len(data) == 0 {
 		return nil, fmt.Errorf("cannot encrypt nothing - data length 0")
