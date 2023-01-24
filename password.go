@@ -3,6 +3,7 @@ package secutil
 import (
 	"bytes"
 	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"fmt"
 	"runtime"
@@ -74,7 +75,7 @@ func hashPasswordArgon2id(password []byte, salt []byte) []byte {
 }
 
 func hashPasswordPBKDF2(password []byte, salt []byte) []byte {
-	hash := pbkdf2.Key(password, salt, 4096, 32, sha256.New)
+	hash := pbkdf2.Key(password, salt, 130000, 32, sha512.New)
 	return []byte(fmt.Sprintf("%s$%x", salt, hash))
 }
 
