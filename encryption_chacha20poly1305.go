@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 
 	"golang.org/x/crypto/chacha20poly1305"
 	"golang.org/x/crypto/scrypt"
@@ -88,7 +87,7 @@ func (t EncryptionChaCha20Poly1305) DecryptKey(data []byte, key []byte) ([]byte,
 		return nil, err
 	}
 
-	ciphertext, err := ioutil.ReadAll(r)
+	ciphertext, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}

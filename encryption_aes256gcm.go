@@ -7,7 +7,6 @@ import (
 	"crypto/cipher"
 	"fmt"
 	"io"
-	"io/ioutil"
 
 	"golang.org/x/crypto/scrypt"
 )
@@ -94,7 +93,7 @@ func (t EncryptionAES256GCM) DecryptKey(data []byte, key []byte) ([]byte, error)
 		return nil, err
 	}
 
-	ciphertext, err := ioutil.ReadAll(r)
+	ciphertext, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}
