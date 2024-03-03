@@ -2,7 +2,6 @@ package secutil
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/hex"
 	"fmt"
@@ -110,7 +109,7 @@ func comparePBKDF2(hash, password []byte) bool {
 	hashData := make([]byte, hex.DecodedLen(len(hashHexData)))
 	hex.Decode(hashData, hashHexData)
 
-	result := pbkdf2.Key(password, hashSalt, 4096, 32, sha256.New)
+	result := pbkdf2.Key(password, hashSalt, 130000, 32, sha512.New)
 	return bytes.Equal(result, hashData)
 }
 
